@@ -1,4 +1,4 @@
-package com.jihan.algorithm;
+package com.jihan.algorithm.sort;
 
 /**
  * Created by Jihan on 2019/6/29

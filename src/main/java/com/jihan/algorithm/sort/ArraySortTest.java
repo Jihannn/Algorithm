@@ -1,4 +1,4 @@
-package com.jihan.algorithm;
+package com.jihan.algorithm.sort;
 
 import java.util.Arrays;
 
