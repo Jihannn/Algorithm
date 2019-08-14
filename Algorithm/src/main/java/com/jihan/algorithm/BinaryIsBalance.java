@@ -30,7 +30,7 @@ public class BinaryIsBalance {
 
     public static NodeData process(Node head) {
         if (head == null) {
-            return new NodeData(false, 0);
+            return new NodeData(true, 0);
         }
         NodeData leftData = process(head.left);
         if (!leftData.isB) {
@@ -40,6 +40,7 @@ public class BinaryIsBalance {
         if (!rightData.isB) {
             return new NodeData(false, 0);
         }
-        return new NodeData(true, Math.abs(leftData.height - rightData.height) + 1);
+        int height = Math.abs(leftData.height - rightData.height);
+        return new NodeData(height <= 1, height + 1);
     }
 }
