@@ -65,6 +65,25 @@ public class InsertionSort {
         System.arraycopy(newArray, 1, array, 0, array.length);
     }
 
+    // 希尔排序
+    public static void shellSort(int[] array) {
+        if (array == null || array.length < 2) {
+            return;
+        }
+        int step = 1;
+        while (step < array.length / 3) {
+            step = 3 * step + 1;
+        }
+        while (step >= 1) {
+            for (int i = step; i < array.length; i++) {
+                for (int j = i; j - step >= 0 && array[j] < array[j - step]; j -= step) {
+                    swap(array, j, j - step);
+                }
+            }
+            step /= 3;
+        }
+    }
+
     public static void swap(int array[], int i, int j) {
         int temp = array[i];
         array[i] = array[j];
@@ -92,6 +111,9 @@ public class InsertionSort {
         printArray(array2);
         int[] array3 = { 0, 6, 1, 3, 8, 4, 0, 3 };
         InsertionSort.halfInsertionSort(array3);
-        printArray(array2);
+        printArray(array3);
+        int[] array4 = { 0, 6, 1, 3, 8, 4, 0, 3 };
+        InsertionSort.shellSort(array4);
+        printArray(array4);
     }
 }
