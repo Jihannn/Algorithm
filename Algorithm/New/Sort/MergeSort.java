@@ -1,77 +1,81 @@
 public class MergeSort {
 
-    public static void mergeSort(int list[]){
-        if(list == null || list.length < 2){
+    public static void mergeSort(int list[]) {
+        if (list == null || list.length < 2) {
             return;
         }
-        process(list,0,list.length-1);
+        process(list, 0, list.length - 1);
     }
 
-    public static void process(int list[],int L,int R){
-        if(L == R){
+    public static void process(int list[], int L, int R) {
+        // 如果只有一个元素则结束递归
+        if (L == R) {
             return;
         }
         int M = L + (R - L >> 1);
-        process(list,L,M);
-        process(list,M+1,R);
-        merge(list,L,M,R);
+        // 左右分治递归
+        process(list, L, M);
+        process(list, M + 1, R);
+        merge(list, L, M, R);
     }
 
-    public static void merge(int list[],int L,int M,int R){
-        int tempList[] = new int[R-L+1];
+    public static void merge(int list[], int L, int M, int R) {
+        // 临时数组存放排序好的子序列
+        int[] tempArray = new int[R - L + 1];
         int left = L;
-        int right = M+1;
+        int right = M + 1;
         int cur = 0;
-        while(left <= M && right <= R){
-            tempList[cur++] = list[left] <= list[right] ? list[left++] : list[right++];
+        // 把L-R中的数递增放入临时数组
+        while (left <= M && right <= R) {
+            tempArray[cur++] = list[left] <= list[right] ? list[left++] : list[right++];
         }
-        while(left <= M){
-            tempList[cur++] = list[left++];
+        // 如果右边已遍历完则把左边剩余放入临时数组
+        while (left <= M) {
+            tempArray[cur++] = list[left++];
         }
-        while(right <= R){
-            tempList[cur++] = list[right++];
+        // 如果左边已遍历完则把右边剩余放入临时数组
+        while (right <= R) {
+            tempArray[cur++] = list[right++];
         }
-        // for (int i : tempList) {
-        //     list[L++] = i; 
-        // }
-        for (int i = 0; i < tempList.length; i++) {
-            list[L + i] = tempList[i];
+        // 把排序好的结果覆盖原数组
+        for (int i = 0; i < tempArray.length; i++) {
+            list[L + i] = tempArray[i];
         }
     }
 
-    //小和问题，一个数左边比它小的数的总和
-    public static int smallSum(int[] list){
-        if(list == null || list.length < 2){
+    // 小和问题，一个数左边比它小的数的总和
+    public static int smallSum(int[] list) {
+        if (list == null || list.length < 2) {
             return 0;
         }
-        return smallSumProcess(list,0,list.length-1);
+        return smallSumProcess(list, 0, list.length - 1);
     }
-    
+
     private static int smallSumProcess(int[] list, int L, int R) {
-        if(L == R){
+        if (L == R) {
             return 0;
         }
         int M = L + ((R - L) >> 1);
         int leftSum = smallSumProcess(list, L, M);
-        int rightSum = smallSumProcess(list, M+1, R);
-        int sum = smallSumMerge(list,L,M,R);
+        int rightSum = smallSumProcess(list, M + 1, R);
+        int sum = smallSumMerge(list, L, M, R);
         return leftSum + rightSum + sum;
     }
 
     private static int smallSumMerge(int[] list, int L, int M, int R) {
-        int tempList[] = new int[R-L+1];
+        int tempList[] = new int[R - L + 1];
         int left = L;
         int right = M + 1;
         int cur = 0;
         int sum = 0;
-        while(left <= M && right <= R){
+        while (left <= M && right <= R) {
             sum += list[left] < list[right] ? (R - right + 1) * list[left] : 0;
             tempList[cur++] = list[left] < list[right] ? list[left++] : list[right++];
         }
-        while(left <= M){
+        while (left <= M) {
             tempList[cur++] = list[left++];
         }
-        while(right <= R){
+        while (right <= R) {
             tempList[cur++] = list[right++];
         }
         for (int i = 0; i < tempList.length; i++) {
@@ -80,39 +84,39 @@ public class MergeSort {
         return sum;
     }
 
-    //打印逆序对 数组左边比右边大为一个逆序对
-    public static void printReverseOrder(int[] list){
-        if(list == null || list.length < 2){
+    // 打印逆序对 数组左边比右边大为一个逆序对
+    public static void printReverseOrder(int[] list) {
+        if (list == null || list.length < 2) {
             return;
         }
-        reverseProcess(list, 0, list.length-1);
+        reverseProcess(list, 0, list.length - 1);
     }
 
-    public static void reverseProcess(int[] list,int L,int R){
-        if(L==R){
+    public static void reverseProcess(int[] list, int L, int R) {
+        if (L == R) {
             return;
         }
         int M = L + ((R - L) >> 1);
-        reverseProcess(list,L,M);
-        reverseProcess(list,M+1,R);
-        reverseMerge(list,L,M,R);
+        reverseProcess(list, L, M);
+        reverseProcess(list, M + 1, R);
+        reverseMerge(list, L, M, R);
     }
-    
-    public static void reverseMerge(int[] list,int L,int M,int R){
-        int tempList[] = new int[R-L+1];
+
+    public static void reverseMerge(int[] list, int L, int M, int R) {
+        int tempList[] = new int[R - L + 1];
         int left = L;
         int right = M + 1;
         int cur = 0;
-        while(left <= M && right <= R){
-            if(list[left] > list[right]){
-                System.out.println("["+list[left]+","+list[right]+"]");
+        while (left <= M && right <= R) {
+            if (list[left] > list[right]) {
+                System.out.println("[" + list[left] + "," + list[right] + "]");
             }
             tempList[cur++] = list[left] < list[right] ? list[left++] : list[right++];
         }
-        while(left <= M){
+        while (left <= M) {
             tempList[cur++] = list[left++];
         }
-        while(right <= R){
+        while (right <= R) {
             tempList[cur++] = list[right++];
         }
         for (int i = 0; i < tempList.length; i++) {
@@ -120,33 +124,33 @@ public class MergeSort {
         }
     }
 
-    public static void swap(int list[],int i,int j){
+    public static void swap(int list[], int i, int j) {
         int temp = list[i];
         list[i] = list[j];
         list[j] = temp;
     }
 
-    public static void printList(int list[]){
+    public static void printList(int list[]) {
         for (int i = 0; i < list.length; i++) {
-            if(i == 0){
-                System.out.print("["); 
-            }else if(i == list.length-1){
-                System.out.print(list[i]+"]");
+            if (i == 0) {
+                System.out.print("[");
+            } else if (i == list.length - 1) {
+                System.out.print(list[i] + "]");
                 break;
             }
-            System.out.print(list[i]+",");
+            System.out.print(list[i] + ",");
         }
     }
 
     public static void main(String[] args) {
-        int list[] = {5,7,8,4,3,2,1};
-        int sumList[] = {1,2,3,4,5,6}; // 5+8+9+8+5 = 35 
-        // mergeSort(list);
-        // printList(list);
-        int reverseOrderList[] = {7,5,4,3};
+        int list[] = { 5, 7, 8, 4, 3, 2, 1, 7, 4 };
+        mergeSort(list);
+        printList(list);
+        int sumList[] = { 1, 2, 3, 4, 5, 6 }; // 5+8+9+8+5 = 35
+        // int reverseOrderList[] = { 7, 5, 4, 3 };
         // System.out.println(smallSum(sumList));
 
         // TODO:有问题
-        printReverseOrder(reverseOrderList);
+        // printReverseOrder(reverseOrderList);
     }
 }
