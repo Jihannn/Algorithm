@@ -1,41 +1,54 @@
 public class SelectionSort {
 
-    public static void selectSort(int[] list) {
-        if (list == null || list.length < 2) {
+    public static void selectSort(int[] array) {
+        if (array == null || array.length < 2) {
             return;
         }
-        for (int i = list.length - 1; i > 0; i--) {
+        for (int i = 0; i < array.length - 1; i++) {
+            int minIndex = i;
+            for (int j = i + 1; j < array.length; j++) {
+                minIndex = array[j] < array[minIndex] ? j : minIndex;
+            }
+            swap(array, i, minIndex);
+        }
+    }
+
+    public static void selectMaxSort(int[] array) {
+        if (array == null || array.length < 2) {
+            return;
+        }
+        for (int i = array.length - 1; i > 0; i--) {
             int maxNum = i;
             for (int j = 0; j < i; j++) {
-                if (list[j] > list[maxNum]) {
+                if (array[j] > array[maxNum]) {
                     maxNum = j;
                 }
             }
-            swap(list, i, maxNum);
+            swap(array, i, maxNum);
         }
     }
 
-    public static void swap(int list[], int i, int j) {
-        int temp = list[i];
-        list[i] = list[j];
-        list[j] = temp;
+    public static void swap(int array[], int i, int j) {
+        int temp = array[i];
+        array[i] = array[j];
+        array[j] = temp;
     }
 
-    public static void printList(int list[]) {
-        for (int i = 0; i < list.length; i++) {
+    public static void printArray(int array[]) {
+        for (int i = 0; i < array.length; i++) {
             if (i == 0) {
                 System.out.print("[");
-            } else if (i == list.length - 1) {
-                System.out.print(list[i] + "]");
+            } else if (i == array.length - 1) {
+                System.out.print(array[i] + "]");
                 break;
             }
-            System.out.print(list[i] + ",");
+            System.out.print(array[i] + ",");
         }
     }
 
     public static void main(String[] args) {
-        int list[] = { 5, 4, 3, 2, 1 };
-        selectSort(list);
-        printList(list);
+        int array[] = { 0, 5, 3, 7, 5, 4 };
+        selectSort(array);
+        printArray(array);
     }
 }
