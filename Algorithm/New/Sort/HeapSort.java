@@ -6,16 +6,18 @@ public class HeapSort {
         if (array == null || array.length < 2) {
             return;
         }
-        // for (int i = 0; i < array.length; i++) {
+        int heapSize = array.length;
+        // 若结点依次添加，则用heapInsert建立堆
+        // for (int i = 0; i < heapSize; i++) {
         // heapInsert(array, i);
         // }
 
-        int heapSize = array.length;
-        // 构建大根堆，从第一个非叶子结点开始
+        // 若已给出全部数组，则可用heapify建立堆
+        // 从第一个非叶子结点开始
         for (int i = (heapSize - 1) / 2; i >= 0; i--) {
             heapify(array, i, heapSize);
         }
-        // 构建小根堆
+        // 每次排序好最后一个位置
         swap(array, 0, --heapSize);
         while (heapSize > 0) {
             heapify(array, 0, heapSize);
@@ -23,42 +25,46 @@ public class HeapSort {
         }
     }
 
-    public static void heapInsert(int[] array, int index) {
+    private static void heapInsert(int[] array, int index) {
         while (array[index] > array[(index - 1) / 2]) {
             swap(array, index, (index - 1) / 2);
             index = (index - 1) / 2;
         }
     }
 
-    public static void heapify(int[] array, int index, int heapSize) {
-        int left = index * 2 + 1;
-        while (left < heapSize) {
-            // 左右孩子中比较大的
-            int largest = left + 1 < heapSize && array[left + 1] > array[left] ? left + 1 : left;
-            // 比较结点和孩子
-            largest = array[index] > array[largest] ? index : largest;
-            if (largest == index) {
+    private static void heapify(int[] array, int index, int heapSize) {
+        int leftIndex = index * 2 + 1;
+        while (leftIndex < heapSize) {
+            // 比较左右孩子
+            int largestIndex = leftIndex + 1 < heapSize && array[leftIndex + 1] > array[leftIndex] ? leftIndex + 1
+                    : leftIndex;
+            largestIndex = array[index] > array[largestIndex] ? index : largestIndex;
+            if (largestIndex == index) {
                 break;
             }
-            // 大的结点下沉
-            swap(array, largest, index);
-            index = largest;
-            left = index * 2 + 1;
+            // 结点下沉
+            swap(array, index, largestIndex);
+            index = largestIndex;
+            leftIndex = index * 2 + 1;
         }
     }
 
     // 相关题目：一个几乎有序的数组，每个元素移动不超过k，完全排好序。
     public static void almostArrSort(int arr[], int k) {
+        // 优先队列不传比较器则默认小根堆
         PriorityQueue<Integer> minHeap = new PriorityQueue<>();
         int index = 0;
-        for (; index < Math.min(arr.length, k); index++) {
+        // 0~k-1位置上的数加入小根堆
+        for (; index < k; index++) {
             minHeap.add(arr[index]);
         }
         int cur = 0;
+        // 最小数出队，解决一个位置
         for (; index < arr.length; index++, cur++) {
             minHeap.add(arr[index]);
             arr[cur] = minHeap.poll();
         }
+        // 数组全部入队跳出上面循环，把剩余元素依次出队
         while (!minHeap.isEmpty()) {
             arr[cur++] = minHeap.poll();
         }
