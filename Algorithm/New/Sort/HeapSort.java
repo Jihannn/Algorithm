@@ -8,10 +8,9 @@ public class HeapSort {
         }
         int heapSize = array.length;
         // 若结点依次添加，则用heapInsert建立堆
-        // for (int i = 0; i < heapSize; i++) {
-        // heapInsert(array, i);
-        // }
-
+        for (int i = 0; i < heapSize; i++) {
+            heapInsert(array, i);
+        }
         // 若已给出全部数组，则可用heapify建立堆
         // 从第一个非叶子结点开始
         for (int i = (heapSize - 1) / 2; i >= 0; i--) {
@@ -92,8 +91,8 @@ public class HeapSort {
         int[] array = { 6, 4, 2, 1, 4, 8, 93, 13, 7 };
         heapSort(array);
         printArray(array);
-        // int[] almostarray = { 1, 3, 5, 8, 2, 4, 6 };
-        // almostArrSort(almostarray, 3);
-        // printArray(almostarray);
+        int[] almostarray = { 1, 3, 5, 8, 2, 4, 6 };
+        almostArrSort(almostarray, 3);
+        printArray(almostarray);
     }
 }
