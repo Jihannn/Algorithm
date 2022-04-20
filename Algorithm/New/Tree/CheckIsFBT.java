@@ -24,7 +24,7 @@ public class CheckIsFBT {
             return true;
         }
         ReturnType rootType = process(root);
-        // 满二叉树结点N与高度H的关系：N = H^2 +1
+        // 满二叉树结点N与高度H的关系：N = 2^H - 1
         return rootType.nodes == Math.pow(2, rootType.height) - 1;
     }
 

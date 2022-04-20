@@ -116,11 +116,11 @@ public class CheckIsBST {
         boolean isBST = true;
         if (leftReturn != null) {
             min = Math.min(min, leftReturn.min);
-            max = Math.max(min, leftReturn.max);
+            max = Math.max(max, leftReturn.max);
         }
         if (rightReturn != null) {
             min = Math.min(min, rightReturn.min);
-            max = Math.max(min, rightReturn.max);
+            max = Math.max(max, rightReturn.max);
         }
         // 左子树最大值没有比当前结点小，右子树最小值没有比当前结点大，左右子树不都是BST，那么当前树不为BST
         if ((leftReturn != null && (!leftReturn.isBST || leftReturn.max > node.data))

@@ -34,7 +34,6 @@ public class TreeMaxWidth {
             // 如果为当前层，结点数和宽度加一
             if (curLevel == levelMap.get(cur)) {
                 curLevelNodes++;
-                maxWidth++;
             } else {
                 // 如果不是当前层，说明到下一层，结算上一层的最大宽度，并且初始化当前层数和结点
                 maxWidth = Math.max(maxWidth, curLevelNodes);
