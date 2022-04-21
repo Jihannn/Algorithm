@@ -37,7 +37,7 @@ public class ExcusiveOR {
 
     // 3.
     public static void findOddNum2(int arr[]){
-        // 数组中所有数组异或，eor结果为两奇数a^b
+        // 数组中所有数异或，eor结果为两奇数a^b
         int eor = 0;
         for (int i : arr) {
             eor ^= i;
