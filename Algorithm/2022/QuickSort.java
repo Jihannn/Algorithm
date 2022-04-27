@@ -34,7 +34,7 @@ public class QuickSort {
         if (L >= R) {
             return;
         }
-        // 随机使得最差情况期望为O(N*LogN)
+        // 随机使得最差情况期望为O(N*logN)
         int randomIndex = L + (int) Math.random() * (R - L + 1);
         swap(arr, randomIndex, R);
         // 相等区域闭区间
