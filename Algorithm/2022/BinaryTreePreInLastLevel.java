@@ -1,3 +1,5 @@
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Stack;
 
 /*
@@ -5,7 +7,7 @@ import java.util.Stack;
  * @Date: 2022-05-02 13:54:27
  * @Description: 二叉树前中后序遍历
  */
-public class BinaryTreePreInLast{
+public class BinaryTreePreInLastLevel{
     public static class Node{
         Node lChild;
         Node rChild;
@@ -41,6 +43,30 @@ public class BinaryTreePreInLast{
         lastRec(node.lChild);
         lastRec(node.rChild);
         System.out.print(node.value+" ");
+    }
+
+    public static void levelRec(Node root){
+        if(root == null){
+            return;
+        }
+        Queue<Node> queue = new LinkedList<>();
+        queue.add(root);
+        process(queue);
+    }
+
+    public static void process(Queue<Node> queue){
+        if(queue.isEmpty()){
+            return;
+        }
+        Node node = queue.poll();
+        System.out.print(node.value + " ");
+        if(node.lChild != null){
+            queue.add(node.lChild);
+        }
+        if(node.rChild != null){
+            queue.add(node.rChild);
+        }
+        process(queue);
     }
 
     public static void preUnRec(Node root){
@@ -101,6 +127,25 @@ public class BinaryTreePreInLast{
         }
     }
 
+    public static void levelUnRec(Node root){
+        if(root == null){
+            return;
+        }
+        Queue<Node> queue = new LinkedList<>();
+        queue.add(root);
+        while(!queue.isEmpty()){
+            Node node = queue.poll();
+            System.out.print(node.value + " ");
+            if(node.lChild != null){
+                queue.add(node.lChild);
+            }
+            if(node.rChild != null){
+                queue.add(node.rChild);
+            }
+        }
+        System.out.println();
+    }
+
     public static void main(String[] args) {
         Node root = new Node(1);
         root.lChild = new Node(2);
@@ -117,11 +162,15 @@ public class BinaryTreePreInLast{
         System.out.println();
         lastRec(root);
         System.out.println();
+        levelRec(root);
+        System.out.println();
         System.out.println();
         preUnRec(root);
         System.out.println();
         inUnRec(root);
         System.out.println();
         lastUnRec(root);
+        System.out.println();
+        levelUnRec(root);
     }
 }
