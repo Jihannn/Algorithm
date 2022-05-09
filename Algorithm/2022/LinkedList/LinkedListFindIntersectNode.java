@@ -1,3 +1,4 @@
+package LinkedList;
 /*
  * @Author: Jihan
  * @Date: 2022-05-01 11:36:29

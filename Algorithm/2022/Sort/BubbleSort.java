@@ -1,9 +1,10 @@
+package Sort;
 /*
  * @Author: Jihan
- * @Date: 2022-04-20 19:47:35
- * @Description: 选择排序
+ * @Date: 2022-04-20 20:07:47
+ * @Description: 冒泡排序
  */
-public class SelectionSort {
+public class BubbleSort {
     public static void swap(int[] arr,int i,int j){
         int temp = arr[i];
         arr[i] = arr[j];
@@ -21,23 +22,23 @@ public class SelectionSort {
         System.out.println("]");
     }
 
-    public static void selectionSort(int[] arr){
+    public static void bubbleSort(int[] arr){
         if(arr == null || arr.length < 2){
             return;
         }
-        for (int i = 0; i < arr.length - 1; i++) {
-            int minValue = i;
-            for (int j = i + 1; j < arr.length; j++) {
-                minValue = arr[j] < arr[minValue] ? j : minValue;
+        for (int i = arr.length - 1; i > 0; i--) {
+            for (int j = 0; j < i; j++) {
+                if(arr[j] > arr[j+1]){
+                    swap(arr, j, j+1);
+                }
             }
-            swap(arr,i,minValue);
         }
     }
 
     public static void main(String[] args) {
         int[] arr = {2,3,6,1,8,0,-2,-5,0,3,6};
         printArr(arr);
-        selectionSort(arr);
+        bubbleSort(arr);
         printArr(arr);
     }
 }

@@ -1,9 +1,10 @@
+package Sort;
 /*
  * @Author: Jihan
- * @Date: 2022-04-20 20:07:47
- * @Description: 冒泡排序
+ * @Date: 2022-04-20 20:13:58
+ * @Description: 插入排序
  */
-public class BubbleSort {
+public class InsertionSort {
     public static void swap(int[] arr,int i,int j){
         int temp = arr[i];
         arr[i] = arr[j];
@@ -21,15 +22,13 @@ public class BubbleSort {
         System.out.println("]");
     }
 
-    public static void bubbleSort(int[] arr){
+    public static void insertionSort(int[] arr){
         if(arr == null || arr.length < 2){
             return;
         }
-        for (int i = arr.length - 1; i > 0; i--) {
-            for (int j = 0; j < i; j++) {
-                if(arr[j] > arr[j+1]){
-                    swap(arr, j, j+1);
-                }
+        for (int i = 1; i < arr.length; i++) {
+            for (int j = i; j-1 >= 0 && arr[j] < arr[j-1] ; j--) {
+                swap(arr, j, j-1);
             }
         }
     }
@@ -37,7 +36,7 @@ public class BubbleSort {
     public static void main(String[] args) {
         int[] arr = {2,3,6,1,8,0,-2,-5,0,3,6};
         printArr(arr);
-        bubbleSort(arr);
+        insertionSort(arr);
         printArr(arr);
     }
 }

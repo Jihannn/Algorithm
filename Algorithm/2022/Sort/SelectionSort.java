@@ -1,9 +1,10 @@
+package Sort;
 /*
  * @Author: Jihan
- * @Date: 2022-04-20 20:13:58
- * @Description: 插入排序
+ * @Date: 2022-04-20 19:47:35
+ * @Description: 选择排序
  */
-public class InsertionSort {
+public class SelectionSort {
     public static void swap(int[] arr,int i,int j){
         int temp = arr[i];
         arr[i] = arr[j];
@@ -21,21 +22,23 @@ public class InsertionSort {
         System.out.println("]");
     }
 
-    public static void insertionSort(int[] arr){
+    public static void selectionSort(int[] arr){
         if(arr == null || arr.length < 2){
             return;
         }
-        for (int i = 1; i < arr.length; i++) {
-            for (int j = i; j-1 >= 0 && arr[j] < arr[j-1] ; j--) {
-                swap(arr, j, j-1);
+        for (int i = 0; i < arr.length - 1; i++) {
+            int minValue = i;
+            for (int j = i + 1; j < arr.length; j++) {
+                minValue = arr[j] < arr[minValue] ? j : minValue;
             }
+            swap(arr,i,minValue);
         }
     }
 
     public static void main(String[] args) {
         int[] arr = {2,3,6,1,8,0,-2,-5,0,3,6};
         printArr(arr);
-        insertionSort(arr);
+        selectionSort(arr);
         printArr(arr);
     }
 }
