@@ -36,19 +36,19 @@ public class BobDie {
         if (k < 0 || row < 0 || row > N || col < 0 || col > M) {
             return -1.0;
         }
-        int[][][] dp = new int[N + 1][M + 1][k + 1];
+        int[][][] dp = new int[N][M][k + 1];
         for (int r = 0; r < N; r++) {
-            for (int c = 0; c <= M; c++) {
+            for (int c = 0; c < M; c++) {
                 dp[r][c][0] = 1;
             }
         }
         for (int level = 1; level <= k; level++) {
-            for (int r = 0; r <= N; r++) {
-                for (int c = 0; c <= M; c++) {
-                    int p1 = r - 1 >= 0 ? dp[r - 1][c][level - 1] : 0;
-                    int p2 = r + 1 <= N ? dp[r + 1][c][level - 1] : 0;
-                    int p3 = c - 1 >= 0 ? dp[r][c - 1][level - 1] : 0;
-                    int p4 = c + 1 <= M ? dp[r][c + 1][level - 1] : 0;
+            for (int r = 0; r < N; r++) {
+                for (int c = 0; c < M; c++) {
+                    int p1 = r - 1 > 0 ? dp[r - 1][c][level - 1] : 0;
+                    int p2 = r + 1 < N ? dp[r + 1][c][level - 1] : 0;
+                    int p3 = c - 1 > 0 ? dp[r][c - 1][level - 1] : 0;
+                    int p4 = c + 1 < M ? dp[r][c + 1][level - 1] : 0;
                     dp[r][c][level] = p1 + p2 + p3 + p4;
                 }
             }
@@ -62,7 +62,6 @@ public class BobDie {
         int row = 2;
         int col = 2;
         int k = 10;
-        // TODO：Fail
         System.out.println(live(N, M, row, col, k));
         System.out.println(liveDP(N, M, row, col, k));
     }
