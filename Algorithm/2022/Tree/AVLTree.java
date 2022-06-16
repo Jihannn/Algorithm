@@ -3,7 +3,7 @@ package Tree;
 /*
  * @Author: Jihan
  * @Date: 2022-06-13 10:04:36
- * @Description: 
+ * @Description: AVL树
  */
 public class AVLTree {
     public static class AVLNode<K extends Comparable<K>, V> {
@@ -82,7 +82,7 @@ public class AVLTree {
             return cur;
         }
 
-        private AVLNode<K, V> add(AVLNode<K, V> cur, K k, V v) {
+        private AVLNode<K, V> add(AVLNode<K, V> cur, K k, V v) {        
             if (cur == null) {
                 return new AVLNode<K, V>(k, v);
             }
@@ -108,7 +108,7 @@ public class AVLTree {
                 } else if (cur.l == null && cur.r != null) {
                     cur = cur.r;
                 } else {
-                    // 取右子树中最小的key
+                    // 找到右边最小的Key取代当前节点以至于能够保持平衡
                     AVLNode<K, V> newCur = cur.r;
                     while (newCur.l != null) {
                         newCur = newCur.l;
@@ -126,6 +126,7 @@ public class AVLTree {
             return maintain(cur);
         }
 
+        // 找到离k最近的位置，如果存在k则返回k
         private AVLNode<K, V> getLastIndex(K k) {
             AVLNode<K, V> pre = root;
             AVLNode<K, V> cur = root;
