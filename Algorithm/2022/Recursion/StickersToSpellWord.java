@@ -95,7 +95,7 @@ public class StickersToSpellWord {
                             rest.append((char) ('a' + j));
                             num--;
                         }
-                    }   
+                    }
                 }
                 min = Math.min(min, process2(stickers, rest.toString(), dp));
             }

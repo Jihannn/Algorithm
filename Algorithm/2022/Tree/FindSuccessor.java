@@ -1,41 +1,43 @@
-package LinkedList;
+package Tree;
+
 /*
  * @Author: Jihan
  * @Date: 2022-05-04 22:34:36
- * @Description: 返回后继结点
+ * @Description: 返回二叉树某节点的后继结点
  */
 public class FindSuccessor {
-    public static class Node{
-        Node left;
-        Node right;
-        Node parent;
-        int value;
-        public Node(int value){
-            this.value = value;
-        }
-    }
+	public static class Node {
+		Node left;
+		Node right;
+		Node parent;
+		int value;
 
-    public static Node getSuccessorNode(Node node){
-        if(node == null){
-            return null;
-        }
-        if(node.right != null){
-            node = node.right;
-            while(node.left != null){
-                node = node.left;
-            }
-            return node;
-        }
-        Node parent = node.parent;
-        while(parent != null && parent.right == node){
-            node = node.parent;
-            parent = node.parent;
-        }
-        return parent;
-    }
+		public Node(int value) {
+			this.value = value;
+		}
+	}
 
-    public static void main(String[] args) {
-        Node head = new Node(6);
+	public static Node getSuccessorNode(Node node) {
+		if (node == null) {
+			return null;
+		}
+		if (node.right != null) {
+			node = node.right;
+			while (node.left != null) {
+				node = node.left;
+			}
+			return node;
+		}
+		Node parent = node.parent;
+		while (parent != null && parent.right == node) {
+			node = node.parent;
+			parent = node.parent;
+		}
+		return parent;
+	}
+
+	public static void main(String[] args) {
+		Node head = new Node(6);
 		head.parent = null;
 		head.left = new Node(3);
 		head.left.parent = head;
@@ -76,5 +78,5 @@ public class FindSuccessor {
 		System.out.println(test.value + " next: " + getSuccessorNode(test).value);
 		test = head.right.right; // 10's next is null
 		System.out.println(test.value + " next: " + getSuccessorNode(test));
-    }
+	}
 }

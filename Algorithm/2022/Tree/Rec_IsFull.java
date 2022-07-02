@@ -1,4 +1,5 @@
 package Tree;
+
 /*
  * @Author: Jihan
  * @Date: 2022-05-06 08:51:40
@@ -14,25 +15,26 @@ public class Rec_IsFull {
             this.value = value;
         }
     }
-    
-    public static class Info{
+
+    public static class Info {
         boolean isFull;
         int height;
-        public Info(boolean isFull,int height){
-            this.isFull =isFull;
+
+        public Info(boolean isFull, int height) {
+            this.isFull = isFull;
             this.height = height;
         }
     }
 
-    public static boolean isFull(Node root){
-        if(root == null){
+    public static boolean isFull(Node root) {
+        if (root == null) {
             return true;
         }
         return process(root).isFull;
     }
 
-    public static Info process(Node node){
-        if(node == null){
+    public static Info process(Node node) {
+        if (node == null) {
             return new Info(true, 0);
         }
         Info leftInfo = process(node.lChild);
@@ -42,6 +44,6 @@ public class Rec_IsFull {
         return new Info(isFull, height);
     }
 
-	public static void main(String[] args) {
-	}
+    public static void main(String[] args) {
+    }
 }

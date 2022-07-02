@@ -6,45 +6,45 @@
  * 给定一个数组arr，求数组的降序对总数量
  */
 public class Merge_ReversePair {
-    public static int reversePair(int arr[]){
-        if(arr == null || arr.length < 2){
-            return 0;
-        }
-        return process(arr,0,arr.length - 1);
-    }
-    
-    public static int process(int[] arr, int L, int R) {
-        if(L == R){
-            return 0;
-        }
-        int M = L + ((R - L) >> 1);
-        return process(arr, L, M) + process(arr, M+1, R) + merge(arr,L,M,R);
-    }
+	public static int reversePair(int arr[]) {
+		if (arr == null || arr.length < 2) {
+			return 0;
+		}
+		return process(arr, 0, arr.length - 1);
+	}
 
-    public static int merge(int[] arr, int L, int M, int R) {
-        int help[] = new int[R - L + 1];
-        int helpIndex = help.length - 1;
-        int leftIndex = M;
-        int rightIndex = R;
-        int count = 0;
-        while(leftIndex >= L && rightIndex >= M + 1){
+	public static int process(int[] arr, int L, int R) {
+		if (L == R) {
+			return 0;
+		}
+		int M = L + ((R - L) >> 1);
+		return process(arr, L, M) + process(arr, M + 1, R) + merge(arr, L, M, R);
+	}
+
+	public static int merge(int[] arr, int L, int M, int R) {
+		int help[] = new int[R - L + 1];
+		int helpIndex = help.length - 1;
+		int leftIndex = M;
+		int rightIndex = R;
+		int count = 0;
+		while (leftIndex >= L && rightIndex >= M + 1) {
 			// 看右边有几个数比当前位置小
-            count += arr[leftIndex] > arr[rightIndex] ? rightIndex - M : 0;
-            help[helpIndex--] = arr[leftIndex] <= arr[rightIndex] ? arr[rightIndex--] : arr[leftIndex--];
-        }
-        while(leftIndex >= L){
-            help[helpIndex--] = arr[leftIndex--];
-        }
-        while(rightIndex >= M + 1){
-            help[helpIndex--] = arr[rightIndex--];
-        }
-        for (int i = 0; i < help.length; i++) {
-            arr[L + i] = help[i];
-        }
-        return count;
-    }
+			count += arr[leftIndex] > arr[rightIndex] ? rightIndex - M : 0;
+			help[helpIndex--] = arr[leftIndex] <= arr[rightIndex] ? arr[rightIndex--] : arr[leftIndex--];
+		}
+		while (leftIndex >= L) {
+			help[helpIndex--] = arr[leftIndex--];
+		}
+		while (rightIndex >= M + 1) {
+			help[helpIndex--] = arr[rightIndex--];
+		}
+		for (int i = 0; i < help.length; i++) {
+			arr[L + i] = help[i];
+		}
+		return count;
+	}
 
-    public static int comparator(int[] arr) {
+	public static int comparator(int[] arr) {
 		int ans = 0;
 		for (int i = 0; i < arr.length; i++) {
 			for (int j = i + 1; j < arr.length; j++) {

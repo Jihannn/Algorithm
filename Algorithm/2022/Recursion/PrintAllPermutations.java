@@ -48,9 +48,10 @@ public class PrintAllPermutations {
         if (index == str.length) {
             result.add(String.valueOf(str));
         } else {
+            // ASCII码范围
             boolean[] visited = new boolean[256];
             for (int i = index; i < str.length; i++) {
-                if(!visited[str[i]]){
+                if (!visited[str[i]]) {
                     visited[str[i]] = true;
                     swap(str, i, index);
                     rec2(str, index + 1, result);

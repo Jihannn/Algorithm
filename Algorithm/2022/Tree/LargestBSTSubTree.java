@@ -1,8 +1,9 @@
 package Tree;
+
 /*
  * @Author: Jihan
  * @Date: 2022-05-06 09:16:28
- * @Description:查找最大(节点最多)二叉搜索子树
+ * @Description:给定一棵二叉树的头节点head，返回这颗二叉树中最大的二叉搜索子树的头节点
  */
 public class LargestBSTSubTree {
     public static class Node {
@@ -16,66 +17,60 @@ public class LargestBSTSubTree {
     }
 
     public static class Info {
-        int nodes;
+        int maxBSTSize;
         int max;
         int min;
-        int largest;
+        Node maxBSTHead;
 
-        public Info(int nodes, int max, int min, int largest) {
-            this.nodes = nodes;
+        public Info(int maxBSTSize, int max, int min, Node maxBSTHead) {
+            this.maxBSTSize = maxBSTSize;
             this.max = max;
             this.min = min;
-            this.largest = largest;
+            this.maxBSTHead = maxBSTHead;
         }
     }
 
-    public static int largestBSTSubTree(Node root){
-        if(root == null){
-            return 0;
+    public static Node maxBSTSubHead(Node root) {
+        if (root == null) {
+            return null;
         }
-        return process(root).largest;
+        return process(root).maxBSTHead;
     }
 
-    public static Info process(Node node){
-        if(node == null){
+    public static Info process(Node node) {
+        if (node == null) {
             return null;
         }
         Info leftInfo = process(node.lChild);
         Info rightInfo = process(node.rChild);
-        int nodes = 1;
+        int maxBSTSize = 0;
+        Node maxBSTHead = null;
         int max = node.value;
         int min = node.value;
         boolean isLeftSmall = true;
         boolean isRightBig = true;
-        if(leftInfo != null){
-            nodes += leftInfo.nodes;
+        if (leftInfo != null) {
+            maxBSTHead = leftInfo.maxBSTHead;
+            maxBSTSize = leftInfo.maxBSTSize;
             max = Math.max(max, leftInfo.max);
             min = Math.min(min, leftInfo.min);
-            isLeftSmall = node.value >= leftInfo.max;
+            isLeftSmall = node.value > leftInfo.max;
         }
-        if(rightInfo != null){
-            nodes += rightInfo.nodes;
+        if (rightInfo != null) {
+            if (rightInfo.maxBSTSize > maxBSTSize) {
+                maxBSTHead = rightInfo.maxBSTHead;
+                maxBSTSize = rightInfo.maxBSTSize;
+            }
             max = Math.max(max, rightInfo.max);
             min = Math.min(min, rightInfo.min);
-            isRightBig = node.value <= rightInfo.min;
+            isRightBig = node.value < rightInfo.min;
         }
-        int largest;
-        if(isLeftSmall && isRightBig){
-            largest = nodes;
-        }else{
-            largest = leftInfo != null ? leftInfo.largest : (rightInfo != null ? rightInfo.largest : 0);
+        if (isLeftSmall && isRightBig && (leftInfo != null ? leftInfo.maxBSTHead == node.lChild : true)
+                && (rightInfo != null ? rightInfo.maxBSTHead == node.rChild : true)) {
+            maxBSTHead = node;
+            maxBSTSize = 1 + (leftInfo != null ? leftInfo.maxBSTSize : 0)
+                    + (rightInfo != null ? rightInfo.maxBSTSize : 0);
         }
-        return new Info(nodes, max, min, largest);
-    }
-
-    public static void main(String[] args) {
-        Node root = new Node(10);
-        root.lChild = new Node(5);
-        root.lChild.lChild = new Node(1);
-        root.lChild.lChild.rChild = new Node(2);
-        root.lChild.rChild = new Node(8);
-        root.rChild = new Node(15);
-        root.rChild.rChild = new Node(7);
-        System.out.println(largestBSTSubTree(root));
+        return new Info(maxBSTSize, max, min, maxBSTHead);
     }
 }

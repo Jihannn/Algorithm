@@ -55,13 +55,13 @@ public class NumberOfIslands {
         }
         // 处理剩下数,上方操作避免做边界判断
         for (int row = 1; row < rowLen; row++) {
-            for (int col = 1; col < colLen;col++) {
+            for (int col = 1; col < colLen; col++) {
                 if (grid[row][col] == '1') {
-                    if(grid[row-1][col] == '1'){
-                        unionFind.union(row, col, row-1, col);
+                    if (grid[row - 1][col] == '1') {
+                        unionFind.union(row, col, row - 1, col);
                     }
-                    if(grid[row][col-1] == '1'){
-                        unionFind.union(row, col, row, col-1);
+                    if (grid[row][col - 1] == '1') {
+                        unionFind.union(row, col, row, col - 1);
                     }
                 }
             }
@@ -131,7 +131,7 @@ public class NumberOfIslands {
             }
         }
 
-        public int sets(){
+        public int sets() {
             return sets;
         }
     }

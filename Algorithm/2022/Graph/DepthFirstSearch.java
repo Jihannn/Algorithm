@@ -10,7 +10,7 @@ import java.util.Stack;
 
 public class DepthFirstSearch {
     public void dfs(Node node) {
-        if(node == null){
+        if (node == null) {
             return;
         }
         Stack<Node> stack = new Stack<>();

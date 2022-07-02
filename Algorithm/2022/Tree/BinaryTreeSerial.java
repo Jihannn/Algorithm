@@ -1,4 +1,5 @@
 package Tree;
+
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Stack;
@@ -9,28 +10,29 @@ import java.util.Stack;
  * @Description: 二叉树序列化反序列化
  */
 public class BinaryTreeSerial {
-    public static class Node{
+    public static class Node {
         Node lChild;
         Node rChild;
         int value;
-        public Node(int value){
+
+        public Node(int value) {
             this.value = value;
         }
     }
 
-    public static Queue<String> preSerial(Node root){
-        if(root == null){
+    public static Queue<String> preSerial(Node root) {
+        if (root == null) {
             return null;
         }
         Stack<Node> stack = new Stack<>();
         Queue<String> strQueue = new LinkedList<>();
         stack.push(root);
-        while(!stack.isEmpty()){
+        while (!stack.isEmpty()) {
             Node node = stack.pop();
-            if(node == null){
+            if (node == null) {
                 strQueue.add(null);
                 continue;
-            }else{
+            } else {
                 strQueue.add(String.valueOf(node.value));
                 stack.push(node.rChild);
                 stack.push(node.lChild);
@@ -39,32 +41,32 @@ public class BinaryTreeSerial {
         return strQueue;
     }
 
-    public static Node buildByPreSerial(Queue<String> queue){
-        if(queue == null || queue.size() < 1){
+    public static Node buildByPreSerial(Queue<String> queue) {
+        if (queue == null || queue.size() < 1) {
             return null;
         }
-        return preBuild(queue,queue.poll());
+        return preBuild(queue, queue.poll());
     }
 
-    public static Node preBuild(Queue<String> queue,String val){
-        if(val == null){
+    public static Node preBuild(Queue<String> queue, String val) {
+        if (val == null) {
             return null;
         }
         Node node = new Node(Integer.valueOf(val));
-        node.lChild = preBuild(queue,queue.poll());
-        node.rChild = preBuild(queue,queue.poll());
+        node.lChild = preBuild(queue, queue.poll());
+        node.rChild = preBuild(queue, queue.poll());
         return node;
     }
 
-    public static void preRec(Node node){
-        if(node == null){
+    public static void preRec(Node node) {
+        if (node == null) {
             return;
         }
-        System.out.print(node.value+" ");
+        System.out.print(node.value + " ");
         preRec(node.lChild);
         preRec(node.rChild);
     }
-     
+
     public static void main(String[] args) {
         Node root = new Node(1);
         root.lChild = new Node(2);

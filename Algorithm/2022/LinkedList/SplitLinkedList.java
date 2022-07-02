@@ -1,4 +1,5 @@
 package LinkedList;
+
 import java.util.ArrayList;
 
 /*
@@ -30,7 +31,7 @@ public class SplitLinkedList {
         Node[] arr = new Node[list.size()];
         list.toArray(arr);
         // 数组中做划分
-        partition(arr,num);
+        partition(arr, num);
         // 根据数组的排序串联链表
         int i = 0;
         while (i < arr.length - 1) {
@@ -40,7 +41,7 @@ public class SplitLinkedList {
         return arr[0];
     }
 
-    public static void partition(Node[] arr,int num) {
+    public static void partition(Node[] arr, int num) {
         int left = -1;
         int right = arr.length;
         int cur = 0;
@@ -55,32 +56,32 @@ public class SplitLinkedList {
         }
     }
 
-    public static Node splitLinkedList(Node head,int num){
+    public static Node splitLinkedList(Node head, int num) {
         Node sH = null;
         Node sT = null;
         Node eH = null;
         Node eT = null;
         Node bH = null;
         Node bT = null;
-        while(head != null){
-            if(head.value < num){
-                if(sH == null){
+        while (head != null) {
+            if (head.value < num) {
+                if (sH == null) {
                     sH = sT = head;
-                }else{
+                } else {
                     sT.next = head;
                     sT = head;
                 }
-            }else if(head.value == num){
-                if(eH == null){
+            } else if (head.value == num) {
+                if (eH == null) {
                     eH = eT = head;
-                }else{
+                } else {
                     eT.next = head;
                     eT = head;
                 }
-            }else{
-                if(bH == null){
+            } else {
+                if (bH == null) {
                     bH = bT = head;
-                }else{
+                } else {
                     bT.next = head;
                     bT = head;
                 }
@@ -88,18 +89,18 @@ public class SplitLinkedList {
             head = head.next;
         }
         // 小于区域的尾巴，连等于区域的头，等于区域的尾巴连大于区域的头
-		if (sT != null) { // 如果有小于区域
-			sT.next = eH;
-			eT = eT == null ? sT : eT; // 下一步，谁去连大于区域的头，谁就变成eT
-		}
-		// 下一步，一定是需要用eT 去接 大于区域的头
-		// 有等于区域，eT -> 等于区域的尾结点
-		// 无等于区域，eT -> 小于区域的尾结点
-		// eT 尽量不为空的尾巴节点
-		if (eT != null) { // 如果小于区域和等于区域，不是都没有
-			eT.next = bH;
-		}
-		return sH != null ? sH : (eH != null ? eH : bH);
+        if (sT != null) { // 如果有小于区域
+            sT.next = eH;
+            eT = eT == null ? sT : eT; // 下一步，谁去连大于区域的头，谁就变成eT
+        }
+        // 下一步，一定是需要用eT 去接 大于区域的头
+        // 有等于区域，eT -> 等于区域的尾结点
+        // 无等于区域，eT -> 小于区域的尾结点
+        // eT 尽量不为空的尾巴节点
+        if (eT != null) { // 如果小于区域和等于区域，不是都没有
+            eT.next = bH;
+        }
+        return sH != null ? sH : (eH != null ? eH : bH);
     }
 
     public static void swap(Node[] arr, int i, int j) {
@@ -108,7 +109,7 @@ public class SplitLinkedList {
         arr[j] = temp;
     }
 
-    public static Node createRandomLinkedList(int maxLen,int maxValue) {
+    public static Node createRandomLinkedList(int maxLen, int maxValue) {
         Node root = new Node(0);
         int len = (int) (Math.random() * maxLen);
         Node node = root;
@@ -130,9 +131,9 @@ public class SplitLinkedList {
 
     public static void main(String[] args) {
         Node head = createRandomLinkedList(100, 100);
-        Node node1 = right(head,50);
+        Node node1 = right(head, 50);
         printLinkedList(node1);
-        Node node2 = splitLinkedList(head,50);
+        Node node2 = splitLinkedList(head, 50);
         printLinkedList(node2);
     }
 }

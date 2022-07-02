@@ -1,4 +1,5 @@
 package Greed;
+
 import java.util.Arrays;
 import java.util.Comparator;
 
@@ -16,11 +17,11 @@ public class FindMinimumSubString {
         }
     }
 
-    public static String getMinimumSubString(String[] strs){
-        if(strs == null || strs.length == 0){
+    public static String getMinimumSubString(String[] strs) {
+        if (strs == null || strs.length == 0) {
             return "";
         }
-        Arrays.sort(strs,new StrComparator());
+        Arrays.sort(strs, new StrComparator());
         String rtn = "";
         for (String str : strs) {
             rtn += str;

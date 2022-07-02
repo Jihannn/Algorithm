@@ -8,17 +8,17 @@ import java.util.Stack;
  * @Description: 用队列/栈实现栈/队列
  */
 public class QueueAndStackTrans {
-    public static class QueueToStack{
+    public static class QueueToStack {
         Queue<Integer> pushQueue = new LinkedList<>();
         Queue<Integer> popQueue = new LinkedList<>();
 
-        public void push(int num){
+        public void push(int num) {
             pushQueue.add(num);
         }
 
         // 保留队尾一个元素，其它元素进入另一个队列
-        public int pop(){
-            if(pushQueue.isEmpty()){
+        public int pop() {
+            if (pushQueue.isEmpty()) {
                 return -1;
             }
             int size = pushQueue.size() - 1;
@@ -31,38 +31,40 @@ public class QueueAndStackTrans {
             return popQueue.remove();
         }
     }
-    public static class StackToQueue{
+
+    public static class StackToQueue {
         Stack<Integer> stack1 = new Stack<>();
         Stack<Integer> stack2 = new Stack<>();
-        
-        public void add(int num){
+
+        public void add(int num) {
             stack1.push(num);
         }
 
-        public int remove(){
+        public int remove() {
             dumpElem();
             return stack2.pop();
         }
 
-        public void dumpElem(){
-            if(!stack2.isEmpty()){
+        public void dumpElem() {
+            if (!stack2.isEmpty()) {
                 return;
             }
-            while(!stack1.isEmpty()){
+            while (!stack1.isEmpty()) {
                 stack2.push(stack1.pop());
             }
         }
     }
+
     public static void main(String[] args) {
         QueueToStack stack = new QueueToStack();
         stack.push(1);
         stack.push(2);
         stack.push(3);
-        System.out.println(stack.pop()); 
+        System.out.println(stack.pop());
         System.out.println(stack.pop());
         stack.push(1);
         stack.push(2);
-        System.out.println(stack.pop()); 
+        System.out.println(stack.pop());
         System.out.println(stack.pop());
         // System.out.println(stack.pop());
         System.out.println("======");

@@ -1,4 +1,5 @@
 package Tree;
+
 import java.util.ArrayList;
 
 /*
@@ -45,45 +46,44 @@ public class Rec_IsBST {
         int max = node.value;
         int min = node.value;
         boolean isBST = true;
-        if(rightInfo != null){
+        if (rightInfo != null) {
             max = Math.max(node.value, rightInfo.max);
-            if(!rightInfo.isBST || rightInfo.min <= node.value){
+            if (!rightInfo.isBST || rightInfo.min <= node.value) {
                 isBST = false;
             }
         }
-        if(leftInfo != null){
+        if (leftInfo != null) {
             min = Math.min(node.value, leftInfo.min);
-            if(!leftInfo.isBST || leftInfo.max >= node.value){
+            if (!leftInfo.isBST || leftInfo.max >= node.value) {
                 isBST = false;
             }
         }
         return new Info(isBST, max, min);
     }
 
-
     // test
     public static boolean isBST1(Node head) {
-		if (head == null) {
-			return true;
-		}
-		ArrayList<Node> arr = new ArrayList<>();
-		in(head, arr);
-		for (int i = 1; i < arr.size(); i++) {
-			if (arr.get(i).value <= arr.get(i - 1).value) {
-				return false;
-			}
-		}
-		return true;
-	}
+        if (head == null) {
+            return true;
+        }
+        ArrayList<Node> arr = new ArrayList<>();
+        in(head, arr);
+        for (int i = 1; i < arr.size(); i++) {
+            if (arr.get(i).value <= arr.get(i - 1).value) {
+                return false;
+            }
+        }
+        return true;
+    }
 
-	public static void in(Node head, ArrayList<Node> arr) {
-		if (head == null) {
-			return;
-		}
-		in(head.lChild, arr);
-		arr.add(head);
-		in(head.rChild, arr);
-	}
+    public static void in(Node head, ArrayList<Node> arr) {
+        if (head == null) {
+            return;
+        }
+        in(head.lChild, arr);
+        arr.add(head);
+        in(head.rChild, arr);
+    }
 
     // for test
     public static Node generateRandomBST(int maxLevel, int maxValue) {
@@ -103,14 +103,14 @@ public class Rec_IsBST {
 
     public static void main(String[] args) {
         int maxLevel = 4;
-		int maxValue = 100;
-		int testTimes = 1000000;
-		for (int i = 0; i < testTimes; i++) {
-			Node head = generateRandomBST(maxLevel, maxValue);
-			if (isBST1(head) != isBST(head)) {
-				System.out.println("Oops!");
-			}
-		}
-		System.out.println("finish!");
+        int maxValue = 100;
+        int testTimes = 1000000;
+        for (int i = 0; i < testTimes; i++) {
+            Node head = generateRandomBST(maxLevel, maxValue);
+            if (isBST1(head) != isBST(head)) {
+                System.out.println("Oops!");
+            }
+        }
+        System.out.println("finish!");
     }
 }

@@ -1,4 +1,5 @@
 package Sort;
+
 /*
  * @Author: Jihan
  * @Date: 2022-04-28 11:45:45
@@ -9,7 +10,7 @@ public class RadixSort {
         if (arr == null || arr.length < 2) {
             return;
         }
-        radixSort(arr, 0, arr.length - 1, getMaxDigit(arr,0,arr.length-1));
+        radixSort(arr, 0, arr.length - 1, getMaxDigit(arr, 0, arr.length - 1));
     }
 
     public static void radixSort(int[] arr, int L, int R, int digit) {
@@ -35,7 +36,7 @@ public class RadixSort {
         }
     }
 
-    public static int getMaxDigit(int[] arr,int L,int R) {
+    public static int getMaxDigit(int[] arr, int L, int R) {
         int maxDigit = 0;
         int maxNum = Integer.MIN_VALUE;
         for (int i = L; i <= R; i++) {
@@ -52,11 +53,11 @@ public class RadixSort {
         return ((num / (int) Math.pow(10, digit - 1)) % 10);
     }
 
-    public static void printArr(int[] arr){
+    public static void printArr(int[] arr) {
         System.out.print("[");
         for (int i = 0; i < arr.length; i++) {
             System.out.print(arr[i]);
-            if(i != arr.length - 1){
+            if (i != arr.length - 1) {
                 System.out.print(",");
             }
         }
@@ -64,7 +65,7 @@ public class RadixSort {
     }
 
     public static void main(String[] args) {
-        int[] arr = {73,2,40,638,9,123,56,79534,62,0,464};
+        int[] arr = { 73, 2, 40, 638, 9, 123, 56, 79534, 62, 0, 464 };
         radixSort(arr);
         printArr(arr);
     }

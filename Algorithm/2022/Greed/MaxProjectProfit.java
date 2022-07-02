@@ -45,11 +45,11 @@ public class MaxProjectProfit {
         for (Project project : projects) {
             minHeap.add(project);
         }
-        while(!minHeap.isEmpty() && k > 0){
-            while(minHeap.peek().cost < m){
+        while (!minHeap.isEmpty() && k > 0) {
+            while (minHeap.peek().cost < m) {
                 maxHeap.add(minHeap.poll());
             }
-            if(maxHeap.isEmpty()){
+            if (maxHeap.isEmpty()) {
                 break;
             }
             m += maxHeap.poll().profit;

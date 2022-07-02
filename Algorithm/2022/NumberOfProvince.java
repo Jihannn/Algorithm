@@ -15,7 +15,7 @@ public class NumberOfProvince {
         UnionFind unionFind = new UnionFind(row);
         for (int i = 0; i < row; i++) {
             for (int j = i + 1; j < col; j++) {
-                if(isConnected[i][j] == 1){
+                if (isConnected[i][j] == 1) {
                     unionFind.union(i, j);
                 }
             }
@@ -64,7 +64,7 @@ public class NumberOfProvince {
             }
         }
 
-        public int sets(){
+        public int sets() {
             return sets;
         }
     }

@@ -101,17 +101,18 @@ public class HeapGreater<T> {
         indexMap.put(jValue, i);
     }
 
-    public static class Test{
+    public static class Test {
         int value;
-        public Test(int value){
+
+        public Test(int value) {
             this.value = value;
         }
     }
 
-    public static class TestComparator implements Comparator<Test>{
+    public static class TestComparator implements Comparator<Test> {
         @Override
         public int compare(Test t1, Test t2) {
-            return t1.value-t2.value;
+            return t1.value - t2.value;
         }
     }
 

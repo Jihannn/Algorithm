@@ -4,60 +4,68 @@
  * @Description: 数组实现队列和栈
  */
 public class ArrayToStackAndQueue {
-    public static class ArrayToStack{
+    public static class ArrayToStack {
         int size = 0;
         int maxinum = 0;
         int[] arr = null;
-        public ArrayToStack(int maxinum){
+
+        public ArrayToStack(int maxinum) {
             this.maxinum = maxinum;
             this.arr = new int[maxinum];
         }
-        public void push(int num){
-            if(size == maxinum){
+
+        public void push(int num) {
+            if (size == maxinum) {
                 throw new RuntimeException("栈已满");
             }
             arr[size++] = num;
         }
-        public int pop(){
-            if(size == 0){
+
+        public int pop() {
+            if (size == 0) {
                 throw new RuntimeException("栈已空");
             }
             return arr[--size];
         }
     }
-    public static class ArrayToQueue{
+
+    public static class ArrayToQueue {
         int maxinum = 0;
         int size = 0;
         int addIndex = 0;
         int removeIndex = 0;
         int[] arr = null;
-        public ArrayToQueue(int maxinum){
+
+        public ArrayToQueue(int maxinum) {
             this.maxinum = maxinum;
             this.arr = new int[maxinum];
         }
-        public void add(int num){
-            if(size == maxinum){
+
+        public void add(int num) {
+            if (size == maxinum) {
                 throw new RuntimeException("队列已满");
             }
             size++;
             arr[addIndex] = num;
             addIndex = findNextIndex(addIndex);
         }
-        public int remove(){
-            if(size == 0){
+
+        public int remove() {
+            if (size == 0) {
                 throw new RuntimeException("队列为空");
             }
             size--;
-            int rtn =  arr[removeIndex];
+            int rtn = arr[removeIndex];
             removeIndex = findNextIndex(removeIndex);
             return rtn;
         }
 
         // 循环队列，找到下一个下标
-        public int findNextIndex(int i){
+        public int findNextIndex(int i) {
             return i < maxinum - 1 ? i + 1 : 0;
         }
     }
+
     public static void main(String[] args) {
         ArrayToStack stack = new ArrayToStack(3);
         stack.push(1);

@@ -10,13 +10,13 @@ public class Edge {
     Node to;
     int weight;
 
-    public Edge(Node from,Node to){
+    public Edge(Node from, Node to) {
         this.from = from;
         this.to = to;
         this.weight = 0;
     }
 
-    public Edge(Node from,Node to,int weight){
+    public Edge(Node from, Node to, int weight) {
         this.from = from;
         this.to = to;
         this.weight = weight;

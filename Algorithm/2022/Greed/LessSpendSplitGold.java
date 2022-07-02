@@ -1,4 +1,5 @@
 package Greed;
+
 import java.util.PriorityQueue;
 
 /*
@@ -13,19 +14,17 @@ import java.util.PriorityQueue;
  * 输入一个数组，返回分割的最小代价
  */
 public class LessSpendSplitGold {
-
-    public static int splitGold(int[] nums){
+    public static int splitGold(int[] nums) {
         PriorityQueue<Integer> minHeap = new PriorityQueue<>();
         for (Integer num : nums) {
             minHeap.add(num);
         }
         int spend = 0;
-        while(minHeap.size() > 1){
+        while (minHeap.size() > 1) {
             int s = minHeap.poll() + minHeap.poll();
             spend += s;
             minHeap.add(s);
         }
         return spend;
     }
-    
 }

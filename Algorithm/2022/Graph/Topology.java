@@ -11,15 +11,15 @@ import java.util.Queue;
  * @Description: 拓扑排序
  */
 public class Topology {
-    public static ArrayList<Node> topology(Graph graph){
-        if(graph == null){
+    public static ArrayList<Node> topology(Graph graph) {
+        if (graph == null) {
             return null;
         }
-        HashMap<Integer,Node> nodes = graph.nodes;
+        HashMap<Integer, Node> nodes = graph.nodes;
         ArrayList<Node> rtn = new ArrayList<>();
-        while(rtn.size() !=  nodes.size()){
+        while (rtn.size() != nodes.size()) {
             for (Node node : nodes.values()) {
-                if(node.in == 0){
+                if (node.in == 0) {
                     rtn.add(node);
                     for (Node next : node.nexts) {
                         next.in--;
@@ -30,26 +30,27 @@ public class Topology {
         return rtn;
     }
 
-    public static ArrayList<Node> topologySort(Graph graph){
-        if(graph == null){
+    public static ArrayList<Node> topologySort(Graph graph) {
+        if (graph == null) {
             return null;
         }
         Queue<Node> zeroQueue = new LinkedList<>();
-        HashMap<Node,Integer> inMap = new HashMap<>();
+        // 记录入度，不改变图本身
+        HashMap<Node, Integer> inMap = new HashMap<>();
         for (Node node : graph.nodes.values()) {
             inMap.put(node, node.in);
-            if(node.in == 0){
+            if (node.in == 0) {
                 zeroQueue.add(node);
             }
         }
         ArrayList<Node> rtn = new ArrayList<>();
-        while(!zeroQueue.isEmpty()){
+        while (!zeroQueue.isEmpty()) {
             Node cur = zeroQueue.poll();
             rtn.add(cur);
             for (Node next : cur.nexts) {
                 int nowIn = inMap.get(next) - 1;
                 inMap.put(next, nowIn);
-                if(nowIn == 0){
+                if (nowIn == 0) {
                     zeroQueue.add(next);
                 }
             }

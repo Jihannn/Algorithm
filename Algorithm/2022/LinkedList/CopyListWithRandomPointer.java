@@ -1,5 +1,7 @@
 package LinkedList;
+
 import java.util.HashMap;
+
 /*
  * @Author: Jihan
  * @Date: 2022-04-30 15:03:41
@@ -18,7 +20,7 @@ public class CopyListWithRandomPointer {
         int val;
         Node next;
         Node random;
-    
+
         public Node(int val) {
             this.val = val;
             this.next = null;
@@ -31,16 +33,16 @@ public class CopyListWithRandomPointer {
         return method2(head);
     }
 
-    public Node method1(Node head){
-        HashMap<Node,Node> map = new HashMap<>();
+    public Node method1(Node head) {
+        HashMap<Node, Node> map = new HashMap<>();
         Node node = head;
         // 每个结点与拷贝结点对应上
-        while(node != null){
-            map.put(node,new Node(node.val));
+        while (node != null) {
+            map.put(node, new Node(node.val));
             node = node.next;
         }
         node = head;
-        while(node != null){
+        while (node != null) {
             Node copyNode = map.get(node);
             copyNode.next = map.get(node.next);
             copyNode.random = map.get(node.random);
@@ -49,13 +51,13 @@ public class CopyListWithRandomPointer {
         return map.get(head);
     }
 
-    public Node method2(Node head){
-        if(head == null){
+    public Node method2(Node head) {
+        if (head == null) {
             return null;
         }
         // 在每个结点后面添加拷贝结点
         Node node = head;
-        while(node != null){
+        while (node != null) {
             Node temp = node.next;
             Node copyNode = new Node(node.val);
             node.next = copyNode;
@@ -64,7 +66,7 @@ public class CopyListWithRandomPointer {
         }
         // 根据特性可以找到随机指针的指向
         node = head;
-        while(node != null){
+        while (node != null) {
             Node copyNode = node.next;
             copyNode.random = node.random == null ? null : node.random.next;
             node = copyNode.next;
@@ -72,7 +74,7 @@ public class CopyListWithRandomPointer {
         // 断开连接
         node = head;
         Node rtn = node.next;
-        while(node != null){
+        while (node != null) {
             Node copyNode = node.next;
             node.next = copyNode.next;
             copyNode.next = copyNode.next == null ? null : copyNode.next.next;

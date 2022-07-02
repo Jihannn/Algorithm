@@ -1,4 +1,5 @@
 package LinkedList;
+
 import java.util.Stack;
 
 /*
@@ -50,8 +51,8 @@ public class Palindrome {
         }
         // 遍历链表，如果不相同则不是回文
         Node cur = head;
-        while(slow != null){
-            if(slow.value != cur.value){
+        while (slow != null) {
+            if (slow.value != cur.value) {
                 return false;
             }
             cur = cur.next;
@@ -61,12 +62,12 @@ public class Palindrome {
     }
 
     // test
-    public static Node createRandomLinkedList(int maxLen){
+    public static Node createRandomLinkedList(int maxLen) {
         Node root = new Node(0);
         int len = (int) (Math.random() * maxLen);
         int value = 1;
         Node node = root;
-        while(len > 0){
+        while (len > 0) {
             node.next = new Node(value++);
             node = node.next;
             len--;
@@ -74,9 +75,9 @@ public class Palindrome {
         return root;
     }
 
-    public static void printLinkedList(Node head){
-        while(head != null){
-            System.out.print(head.value+"->");
+    public static void printLinkedList(Node head) {
+        while (head != null) {
+            System.out.print(head.value + "->");
             head = head.next;
         }
         System.out.println("null");
@@ -90,7 +91,7 @@ public class Palindrome {
             Node head = createRandomLinkedList(listLen);
             boolean right = palindrome1(head);
             boolean test = palindrome(head);
-            if(right != test){
+            if (right != test) {
                 System.out.println("Error");
                 printLinkedList(head);
                 break;

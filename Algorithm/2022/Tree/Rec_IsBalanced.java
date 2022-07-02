@@ -1,55 +1,56 @@
 package Tree;
+
 /*
  * @Author: Jihan
  * @Date: 2022-05-05 17:15:27
  * @Description: 是否平衡二叉树
  */
 public class Rec_IsBalanced {
-    public static class Node {
-        Node lChild;
-        Node rChild;
-        int value;
+	public static class Node {
+		Node lChild;
+		Node rChild;
+		int value;
 
-        public Node(int value) {
-            this.value = value;
-        }
-    }
+		public Node(int value) {
+			this.value = value;
+		}
+	}
 
-    public static class Info {
-        boolean isBalanced;
-        int height;
+	public static class Info {
+		boolean isBalanced;
+		int height;
 
-        public Info(boolean isBalanced, int height) {
-            this.isBalanced = isBalanced;
-            this.height = height;
-        }
-    }
+		public Info(boolean isBalanced, int height) {
+			this.isBalanced = isBalanced;
+			this.height = height;
+		}
+	}
 
-    public static boolean isBalanced(Node root) {
-        if (root == null) {
-            return true;
-        }
-        return process(root).isBalanced;
-    }
+	public static boolean isBalanced(Node root) {
+		if (root == null) {
+			return true;
+		}
+		return process(root).isBalanced;
+	}
 
-    public static Info process(Node node) {
-        if (node == null) {
-            return new Info(true, 0);
-        }
-        Info leftInfo = process(node.lChild);
-        Info rightInfo = process(node.rChild);
-        int height = Math.max(leftInfo.height, rightInfo.height) + 1;
-        boolean isBalanced = true;
-        if (!leftInfo.isBalanced || !rightInfo.isBalanced) {
-            isBalanced = false;
-        }
-        if (Math.abs(leftInfo.height - rightInfo.height) > 1) {
-            isBalanced = false;
-        }
-        return new Info(isBalanced, height);
-    }
-    
-    public static boolean isBalanced1(Node head) {
+	public static Info process(Node node) {
+		if (node == null) {
+			return new Info(true, 0);
+		}
+		Info leftInfo = process(node.lChild);
+		Info rightInfo = process(node.rChild);
+		int height = Math.max(leftInfo.height, rightInfo.height) + 1;
+		boolean isBalanced = true;
+		if (!leftInfo.isBalanced || !rightInfo.isBalanced) {
+			isBalanced = false;
+		}
+		if (Math.abs(leftInfo.height - rightInfo.height) > 1) {
+			isBalanced = false;
+		}
+		return new Info(isBalanced, height);
+	}
+
+	public static boolean isBalanced1(Node head) {
 		boolean[] ans = new boolean[1];
 		ans[0] = true;
 		process1(head, ans);
@@ -68,7 +69,7 @@ public class Rec_IsBalanced {
 		return Math.max(leftHeight, rightHeight) + 1;
 	}
 
-    // for test
+	// for test
 	public static Node generateRandomBST(int maxLevel, int maxValue) {
 		return generate(1, maxLevel, maxValue);
 	}
@@ -83,7 +84,6 @@ public class Rec_IsBalanced {
 		head.rChild = generate(level + 1, maxLevel, maxValue);
 		return head;
 	}
-    
 
 	public static void main(String[] args) {
 		int maxLevel = 5;

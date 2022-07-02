@@ -1,4 +1,5 @@
 package Sort;
+
 import java.util.Arrays;
 
 /*
@@ -7,27 +8,28 @@ import java.util.Arrays;
  * @Description: 计数排序
  */
 public class CountSort {
-    public static void countSort(int[] arr){
-        if(arr == null || arr.length < 2){
-            return;
-        }
-        int max = Integer.MIN_VALUE;
-        for (int i = 0; i < arr.length; i++) {
-            max = Math.max(max, arr[i]);
-        }
-        int[] bucket = new int[max + 1];
-        for (int i = 0; i < arr.length; i++) {
-            bucket[arr[i]] += 1;
-        }
-        int index = 0;
-        for (int i = 0; i < bucket.length; i++) {
-            while(bucket[i]-- > 0){
-                arr[index++] = i;
-            }
-        }
-    }
-    
-    // for test
+	public static void countSort(int[] arr) {
+		if (arr == null || arr.length < 2) {
+			return;
+		}
+		int max = Integer.MIN_VALUE;
+		for (int i = 0; i < arr.length; i++) {
+			max = Math.max(max, arr[i]);
+		}
+		int[] bucket = new int[max + 1];
+		for (int i = 0; i < arr.length; i++) {
+			bucket[arr[i]] += 1;
+		}
+		// arr下标
+		int index = 0;
+		for (int i = 0; i < bucket.length; i++) {
+			while (bucket[i]-- > 0) {
+				arr[index++] = i;
+			}
+		}
+	}
+
+	// for test
 	public static void comparator(int[] arr) {
 		Arrays.sort(arr);
 	}
@@ -96,7 +98,7 @@ public class CountSort {
 			if (!isEqual(arr1, arr2)) {
 				printArray(arr1);
 				printArray(arr2);
-                System.out.println("error");
+				System.out.println("error");
 				break;
 			}
 		}

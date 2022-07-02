@@ -17,7 +17,7 @@ public class MinPathSum {
     }
 
     private static int process(int row, int col, int[][] matrix) {
-        if(row == matrix.length -1 && col == matrix[row].length - 1){
+        if (row == matrix.length - 1 && col == matrix[row].length - 1) {
             return matrix[row][col];
         }
         if (row > matrix.length || col > matrix[0].length) {
@@ -25,33 +25,62 @@ public class MinPathSum {
         }
         int p1 = process(row + 1, col, matrix);
         int p2 = process(row, col + 1, matrix);
-        if(p1 != Integer.MAX_VALUE){
+        if (p1 != Integer.MAX_VALUE) {
             p1 += matrix[row][col];
         }
-        if(p2 != Integer.MAX_VALUE){
+        if (p2 != Integer.MAX_VALUE) {
             p2 += matrix[row][col];
         }
         return Math.min(p1, p2);
     }
 
-    public static int minPath(int[][] matrix) {
-        if (matrix == null || matrix.length < 1 || matrix[0].length < 1) {
+    public static int minPath1(int[][] grid) {
+        if (grid == null || grid.length < 1 || grid[0].length < 1) {
             return 0;
         }
-        int row = matrix.length;
-        int col = matrix[0].length;
-        int[] dp = new int[matrix.length];
-        dp[0] = matrix[0][0];
-        for (int i = 1; i < col; i++) {
-            dp[i] = matrix[0][i] + dp[i - 1];
+        int rowLen = grid.length;
+        int colLen = grid[0].length;
+        int[][] dp = new int[rowLen][colLen];
+
+        dp[rowLen - 1][colLen - 1] = grid[rowLen - 1][colLen - 1];
+
+        for (int col = colLen - 2; col >= 0; col--) {
+            dp[rowLen - 1][col] = grid[rowLen - 1][col] + dp[rowLen - 1][col + 1];
         }
-        for (int i = 1; i < row; i++) {
-            dp[0] += matrix[i][0];
-            for (int j = 1; j < col; j++) {
-                dp[j] = Math.min(dp[j - 1] + matrix[i][j], dp[j] + matrix[i][j]);
+
+        for (int row = rowLen - 2; row >= 0; row--) {
+            dp[row][colLen - 1] = grid[row][colLen - 1] + dp[row + 1][colLen - 1];
+        }
+
+        for (int row = rowLen - 2; row >= 0; row--) {
+            for (int col = colLen - 2; col >= 0; col--) {
+                dp[row][col] = grid[row][col] + Math.min(dp[row + 1][col], dp[row][col + 1]);
             }
         }
-        return dp[dp.length - 1];
+
+        return dp[0][0];
+    }
+
+    public static int minPath2(int[][] grid) {
+        if (grid == null || grid.length < 1 || grid[0].length < 1) {
+            return 0;
+        }
+        int rowLen = grid.length;
+        int colLen = grid[0].length;
+        int[] dp = new int[colLen];
+        dp[colLen - 1] = grid[rowLen - 1][colLen - 1];
+
+        for (int col = colLen - 2; col >= 0; col--) {
+            dp[col] = grid[rowLen - 1][col] + dp[col + 1];
+        }
+
+        for (int row = rowLen - 2; row >= 0; row--) {
+            dp[colLen - 1] += grid[row][colLen - 1];
+            for (int col = colLen - 2; col >= 0; col--) {
+                dp[col] = grid[row][col] + Math.min(dp[col + 1], dp[col]);
+            }
+        }
+        return dp[0];
     }
 
     // for test
@@ -81,8 +110,18 @@ public class MinPathSum {
     public static void main(String[] args) {
         int rowSize = 10;
         int colSize = 10;
-        int[][] m = generateRandomMatrix(rowSize, colSize);
-        System.out.println(minPath(m));
-        System.out.println(force(m));
+        int testTime = 1000;
+        System.out.println("start");
+        for (int i = 0; i < testTime; i++) {
+            int[][] m = generateRandomMatrix(rowSize, colSize);
+            int rtn1 = minPath2(m);
+            int rtn2 = minPath1(m);
+            int rtn3 = force(m);
+            if (rtn1 != rtn2 || rtn1 != rtn3) {
+                System.out.println("oop");
+                break;
+            }
+        }
+        System.out.println("over");
     }
 }

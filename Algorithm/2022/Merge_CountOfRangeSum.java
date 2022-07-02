@@ -12,8 +12,8 @@
  * 输出：1
  */
 public class Merge_CountOfRangeSum {
-    public static int countOfRangeSum(int arr[],int lower,int upper){
-        if(arr == null || arr.length == 0){
+    public static int countOfRangeSum(int arr[], int lower, int upper) {
+        if (arr == null || arr.length == 0) {
             return 0;
         }
         // long类型防止溢出
@@ -21,18 +21,21 @@ public class Merge_CountOfRangeSum {
         sum[0] = arr[0];
         // 前缀和数组,sum[i]表示arr[0]~arr[i]位置的和
         for (int i = 1; i < sum.length; i++) {
-            sum[i] = sum[i-1] + arr[i];
+            sum[i] = sum[i - 1] + arr[i];
         }
-        return process(sum,0,sum.length-1,lower,upper);
+        return process(sum, 0, sum.length - 1, lower, upper);
     }
-    public static int process(long[] sum,int L,int R,int lower,int upper){
+
+    public static int process(long[] sum, int L, int R, int lower, int upper) {
         // merge过程中不能处理0~i位置的数，所以放到该处
-        if(L == R){
+        if (L == R) {
             return lower <= sum[L] && sum[L] <= upper ? 1 : 0;
         }
         int M = L + ((R - L) >> 1);
-        return process(sum,L,M,lower,upper) + process(sum, M+1, R, lower, upper) + merge(sum,L,M,R,lower,upper);
+        return process(sum, L, M, lower, upper) + process(sum, M + 1, R, lower, upper)
+                + merge(sum, L, M, R, lower, upper);
     }
+
     public static int merge(long[] sum, int L, int M, int R, int lower, int upper) {
         int windowL = L;
         int windowR = L;
@@ -43,10 +46,10 @@ public class Merge_CountOfRangeSum {
         for (int i = M + 1; i <= R; i++) {
             long newLower = sum[i] - upper;
             long newUpper = sum[i] - lower;
-            while(windowR <= M && sum[windowR] <= newUpper){
+            while (windowR <= M && sum[windowR] <= newUpper) {
                 windowR++;
             }
-            while(windowL <= M && sum[windowL] < newLower){
+            while (windowL <= M && sum[windowL] < newLower) {
                 windowL++;
             }
             count += windowR - windowL;
@@ -55,13 +58,13 @@ public class Merge_CountOfRangeSum {
         int helpIndex = 0;
         int leftIndex = L;
         int rightIndex = M + 1;
-        while(leftIndex <= M && rightIndex <= R){
+        while (leftIndex <= M && rightIndex <= R) {
             help[helpIndex++] = sum[leftIndex] < sum[rightIndex] ? sum[leftIndex++] : sum[rightIndex++];
         }
-        while(leftIndex <= M){
+        while (leftIndex <= M) {
             help[helpIndex++] = sum[leftIndex++];
         }
-        while(rightIndex <= R){
+        while (rightIndex <= R) {
             help[helpIndex++] = sum[rightIndex++];
         }
         for (int i = 0; i < help.length; i++) {

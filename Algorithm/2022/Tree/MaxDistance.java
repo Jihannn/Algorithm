@@ -1,4 +1,5 @@
 package Tree;
+
 /*
  * @Author: Jihan
  * @Date: 2022-05-06 11:17:54
@@ -38,13 +39,10 @@ public class MaxDistance {
         }
         Info leftInfo = process(node.lChild);
         Info rightInfo = process(node.rChild);
-        int height = Math.max(leftInfo.height , rightInfo.height) + 1;
+        int height = Math.max(leftInfo.height, rightInfo.height) + 1;
         int maxDistance = leftInfo.height + rightInfo.height + 1;
         maxDistance = Math.max(leftInfo.maxDistance, maxDistance);
         maxDistance = Math.max(rightInfo.maxDistance, maxDistance);
         return new Info(maxDistance, height);
     }
-
-	public static void main(String[] args) {
-	}
 }

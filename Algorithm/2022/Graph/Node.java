@@ -14,7 +14,7 @@ public class Node {
     ArrayList<Node> nexts;
     ArrayList<Edge> edges;
 
-    public Node(){
+    public Node() {
         in = 0;
         to = 0;
         value = 0;

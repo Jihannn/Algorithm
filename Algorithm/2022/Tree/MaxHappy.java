@@ -1,4 +1,7 @@
+package Tree;
+
 import java.util.List;
+
 /*
  * @Author: Jihan
  * @Date: 2022-05-07 16:55:06
@@ -24,38 +27,35 @@ public class MaxHappy {
         List<Employee> subordinates; // 这名员工有哪些直接下级
     }
 
-    public static class Info{
+    public static class Info {
         int yes;
         int no;
-        public Info(int yes,int no){
+
+        public Info(int yes, int no) {
             this.yes = yes;
             this.no = no;
         }
     }
 
-    public static int getMaxHappy(Employee root){
-        if(root == null){
+    public static int getMaxHappy(Employee root) {
+        if (root == null) {
             return 0;
         }
         Info boss = process(root);
         return Math.max(boss.yes, boss.no);
     }
 
-    public static Info process(Employee node){
-        if(node == null){
-            return new Info(0,0);
+    public static Info process(Employee node) {
+        if (node == null) {
+            return new Info(0, 0);
         }
         int yes = node.happy;
         int no = 0;
         for (Employee sub : node.subordinates) {
             Info subInfo = process(sub);
             yes += subInfo.no;
-            no += Math.max(subInfo.yes,subInfo.no);
+            no += Math.max(subInfo.yes, subInfo.no);
         }
-        return new Info(yes,no);
-    }
-
-    public static void main(String[] args) {
-
+        return new Info(yes, no);
     }
 }

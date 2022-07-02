@@ -18,9 +18,9 @@ public class Kruskal {
             minHeap.add(edge);
         }
         ArrayList<Edge> rtn = new ArrayList<>();
-        while(!minHeap.isEmpty()){
+        while (!minHeap.isEmpty()) {
             Edge cur = minHeap.poll();
-            if(!unionFind.isSameSet(cur.from, cur.to)){
+            if (!unionFind.isSameSet(cur.from, cur.to)) {
                 rtn.add(cur);
                 unionFind.union(cur.from, cur.to);
             }
@@ -73,6 +73,5 @@ public class Kruskal {
         public boolean isSameSet(Node a, Node b) {
             return findAncestor(a) == findAncestor(b);
         }
-
     }
 }
