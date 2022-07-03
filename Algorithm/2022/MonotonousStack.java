@@ -1,5 +1,7 @@
 import java.util.ArrayDeque;
+import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 
 /*
  * @Author: Jihan
@@ -7,6 +9,43 @@ import java.util.LinkedList;
  * @Description: 单调栈
  */
 public class MonotonousStack {
+
+    public static int[][] getNearLess2(int[] arr) {
+        if (arr == null || arr.length < 1) {
+            return null;
+        }
+        int N = arr.length;
+        int cur = 0;
+        int[][] rtn = new int[N][2];
+        ArrayDeque<List<Integer>> stack = new ArrayDeque<>();
+        while (cur < N) {
+            while (!stack.isEmpty() && arr[stack.peek().get(0)] > arr[cur]) {
+                List<Integer> list = stack.pop();
+                List<Integer> preList = stack.peek();
+                for (Integer i : list) {
+                    rtn[i][0] = preList == null ? -1 : preList.get(preList.size() - 1);
+                    rtn[i][1] = cur;
+                }
+            }
+            if (!stack.isEmpty() && arr[stack.peek().get(0)] == arr[cur]) {
+                stack.peek().add(cur);
+            } else {
+                ArrayList<Integer> newList = new ArrayList<>();
+                newList.add(cur);
+                stack.push(newList);
+            }
+            cur++;
+        }
+        while (!stack.isEmpty()) {
+            List<Integer> list = stack.pop();
+            List<Integer> preList = stack.peek();
+            for (Integer i : list) {
+                rtn[i][0] = preList == null ? -1 : preList.get(preList.size() - 1);
+                rtn[i][1] = -1;
+            }
+        }
+        return rtn;
+    }
 
     public static int[][] getNearLess(int[] arr) {
         if (arr == null) {
@@ -132,17 +171,19 @@ public class MonotonousStack {
     public static void main(String[] args) {
         int size = 10;
         int max = 20;
-        int testTimes = 2000000;
+        int testTimes = 10;
         System.out.println("测试开始");
         for (int i = 0; i < testTimes; i++) {
             int[] arr2 = getRandomArray(size, max);
             int[][] ans1 = getNearLess(arr2);
             int[][] ans2 = rightWay(arr2);
-            if (!isEqual(ans1, ans2)) {
+            int[][] ans3 = getNearLess2(arr2);
+            if (!isEqual(ans1, ans2) || !isEqual(ans1, ans3)) {
                 System.out.println("Oops!");
                 printArray(arr2);
                 printArray2(ans1);
                 printArray2(ans2);
+                printArray2(ans3);
                 break;
             }
         }

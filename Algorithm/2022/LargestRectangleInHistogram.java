@@ -29,4 +29,27 @@ public class LargestRectangleInHistogram {
         }
         return max;
     }
+
+    public int largestRectangleArea(int[] heights) {
+        if (heights == null || heights.length < 1) {
+            return -1;
+        }
+        int N = heights.length;
+        int cur = 0;
+        int rtn = Integer.MIN_VALUE;
+        ArrayDeque<Integer> stack = new ArrayDeque<>();
+        while (cur < N) {
+            while (!stack.isEmpty() && heights[cur] <= heights[stack.peek()]) {
+                int index = stack.pop();
+                rtn = Math.max(rtn, stack.isEmpty() ? heights[index] * cur : heights[index] * (cur - stack.peek() - 1));
+            }
+            stack.push(cur);
+            cur++;
+        }
+        while (!stack.isEmpty()) {
+            int index = stack.pop();
+            rtn = Math.max(rtn, stack.isEmpty() ? heights[index] * N : heights[index] * (N - stack.peek() - 1));
+        }
+        return rtn;
+    }
 }

@@ -1,4 +1,6 @@
+import java.util.ArrayDeque;
 import java.util.LinkedList;
+import java.util.Queue;
 
 /*
  * @Author: Jihan
@@ -25,10 +27,10 @@ public class SlidingWindowMaxArray {
                 queue.pollLast();
             }
             queue.addLast(right);
-            if(queue.peekFirst() == right - w){
+            if (queue.peekFirst() == right - w) {
                 queue.pollFirst();
             }
-            if(right + 1 >= w){
+            if (right + 1 >= w) {
                 rtn[cur++] = arr[queue.peekFirst()];
             }
             right++;
@@ -37,9 +39,9 @@ public class SlidingWindowMaxArray {
     }
 
     public static void main(String[] args) {
-        int[] arr = {4,3,5,4,3,3,6,7};
+        int[] arr = { 4, 3, 5, 4, 3, 3, 6, 7 };
         for (int i : slidingWindow(arr, 3)) {
-            System.out.print(i+",");
-        } 
+            System.out.print(i + ",");
+        }
     }
 }

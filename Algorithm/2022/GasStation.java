@@ -35,16 +35,16 @@ public class GasStation {
             }
             int index = queue.peekFirst();
             // 改良可以实现从每个站点是否能环绕一圈
-            if(L == 0){
-                if(sum[index] >= 0){
+            if (L == 0) {
+                if (sum[index] >= 0) {
                     return L;
                 }
-            }else{
-                if(sum[index] - sum[L - 1] >= 0){
+            } else {
+                if (sum[index] - sum[L - 1] >= 0) {
                     return L;
                 }
             }
-            if(index == L){
+            if (index == L) {
                 queue.pollFirst();
             }
         }
