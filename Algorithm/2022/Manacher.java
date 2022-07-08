@@ -8,20 +8,24 @@ public class Manacher {
         if (str == null || str.length() < 1) {
             return 0;
         }
-        // # newArr：(index - 1) / 2
+        // 1234 变为 #1#2#3#4# 避免偶数回文找不到
         char[] newArr = getNewArr(str);
-        // radiusArr
-        int[] radiusArr = new int[str.length() * 2 + 1];
+        // 每个数的回文半径
+        int[] radiusArr = new int[newArr.length];
         int c = -1;
         int r = -1;
         int max = Integer.MIN_VALUE;
         for (int i = 0; i < newArr.length; i++) {
-            // i < R 对应i`=> (c * 2 - i)
-            // i.l范围在L,R内
-            // i.l范围超出L
+            // 1.i在r外侧 正常求解
+            // 2.i在r内侧分三种情况
+            //   1.i的回文半径不到r
+            //   2.i的回文半径刚好到r
+            //   3.i的回文半径超过r
+
+            // 求至少回文半径长度
+            // c * 2 - i 是 i的对称点
             radiusArr[i] = i < r ? Math.min(radiusArr[c * 2 - i], r - i) : 1;
-            // i.l范围等于L
-            // i > R 扩散
+
             while (radiusArr[i] + i < newArr.length && i - radiusArr[i] > -1) {
                 if (newArr[radiusArr[i] + i] == newArr[i - radiusArr[i]]) {
                     radiusArr[i]++;
@@ -35,6 +39,7 @@ public class Manacher {
             }
             max = Math.max(radiusArr[i], max);
         }
+        // max - 1即为原数组的回文子串长度
         return max - 1;
     }
 

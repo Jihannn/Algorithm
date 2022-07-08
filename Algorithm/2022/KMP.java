@@ -10,6 +10,7 @@ public class KMP {
         }
         char[] str1 = s1.toCharArray();
         char[] str2 = s2.toCharArray();
+        // 得到每个位置前一位的前缀数和后缀数相同的最长数
         int[] preIndexArr = getPreIndexArr(str2);
         int c1 = 0;
         int c2 = 0;
