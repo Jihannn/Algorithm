@@ -1,7 +1,7 @@
 /*
  * @Author: Jihan
  * @Date: 2022-07-22 22:19:40
- * @Description: 
+ * @Description: https://leetcode.cn/problems/implement-strstr/
  */
 public class _028_ImplementStrStr {
     public int strStr1(String haystack, String needle) {
