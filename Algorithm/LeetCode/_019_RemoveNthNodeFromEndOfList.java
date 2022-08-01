@@ -22,6 +22,22 @@ public class _019_RemoveNthNodeFromEndOfList {
     }
 
     public ListNode removeNthFromEnd(ListNode head, int n) {
+        ListNode dummy = new ListNode(-1);
+        dummy.next = head;
+        ListNode fast = dummy;
+        while (n-- > 0) {
+            fast = fast.next;
+        }
+        ListNode slow = dummy;
+        while (fast.next != null) {
+            fast = fast.next;
+            slow = slow.next;
+        }
+        slow.next = slow.next.next;
+        return dummy.next;
+    }
+
+    public ListNode removeNthFromEnd2(ListNode head, int n) {
         if (head.next == null) {
             return null;
         }
